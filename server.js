@@ -16,12 +16,12 @@ io.on('connection', function (socket) {
   });
   
   
-  socket.emit('welcome', {
+  socket.emit('message', {
+      name: "System",
       text: 'Welcome to the chat application!',
       timestamp: moment().valueOf()
   });
 });
-
 http.listen(PORT, function() {
    console.log("Server started!");
 });
