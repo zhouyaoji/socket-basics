@@ -13,8 +13,8 @@ socket.on('message', function(message) {
   console.log(message.text);
   console.log(message.time);
    var $message = jQuery('.messages');
-   $message.append("<p><strong>" + message.name + ' ' +  momentTimestamp.local().format('h:mm a') + "</strong></p>")
-   $message.append("<p>" + message.text + "</p>");
+   $message.append("<p><strong>&nbsp;" + message.name + ' ' +  momentTimestamp.local().format('h:mm a') + "</strong></p>")
+   $message.append("<p>&nbsp;" + message.text + "</p>");
 });
 
 // Handles submitting of new message.
