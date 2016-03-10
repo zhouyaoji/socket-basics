@@ -1,10 +1,16 @@
 var name = getQueryVariable('name') || "Anonymous";
-var room = getQueryVariable('room');
+var room = getQueryVariable('room') || "General";
 var socket = io();
+
+jQuery('.room-title').text("Room: " + room);
 
 socket.on('connect', function() {
   console.log("Connected!");
   console.log(name + " is in " + room);
+  socket.emit('joinRoom', {
+     name: name,
+     room: room
+   });
 });
 socket.on('message', function(message) {
   var momentTimestamp = moment.utc(message.timestamp); 
@@ -12,9 +18,9 @@ socket.on('message', function(message) {
   console.log(message.user);
   console.log(message.text);
   console.log(message.time);
-   var $message = jQuery('.messages');
-   $message.append("<p><strong>&nbsp;" + message.name + ' ' +  momentTimestamp.local().format('h:mm a') + "</strong></p>")
-   $message.append("<p>&nbsp;" + message.text + "</p>");
+  var $message = jQuery('.messages');
+  $message.append("<p><strong>&nbsp;" + message.name + ' ' +  momentTimestamp.local().format('h:mm a') + "</strong></p>")
+  $message.append("<p>&nbsp;" + message.text + "</p>");
 });
 
 // Handles submitting of new message.
@@ -31,5 +37,3 @@ $form.on('submit', function(ev) {
   });
   $message.val("");
 });
-
-
